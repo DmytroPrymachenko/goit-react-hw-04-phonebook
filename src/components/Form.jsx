@@ -21,14 +21,11 @@ export const Form = ({ contactsState }) => {
     }
   };
 
-  // onChangeState = ({ target: { value, name } }) => {
-  //   this.setState({ [name]: value });
-  // };
-
-  // Питання!!!
   const onSubmitForm = e => {
     e.preventDefault();
     contactsState({ name, number });
+    setName('');
+    setNumber('');
   };
 
   return (
