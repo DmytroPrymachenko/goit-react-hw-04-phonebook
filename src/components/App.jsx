@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { Form } from './Form';
 import FormElementList from './FormElementList';
-import { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormDiv, FormElementDiv } from './StylesJSX/FormElementListStyles';
 import Search from './Search';
 
