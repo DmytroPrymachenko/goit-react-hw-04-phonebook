@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import {
   ButtonType,
   FormsDiv,
@@ -8,41 +8,48 @@ import {
   LabelPhone,
 } from './StylesJSX/FormStyles';
 
-export default class Form extends Component {
-  state = {
-    number: '',
-    name: '',
-  };
-  onChangeState = ({ target: { value, name } }) => {
-    this.setState({ [name]: value });
-  };
-  onSubmitForm = e => {
-    e.preventDefault();
-    this.props.contactsState(this.state);
+export const Form = ({ contactsState }) => {
+  const [number, setNumber] = useState('');
+  const [name, setName] = useState('');
+
+  const onChangeState = e => {
+    const { value, name } = e.target;
+    if (name === 'name') {
+      setName(value);
+    } else if (name === 'number') {
+      setNumber(value);
+    }
   };
 
-  render() {
-    const { name, number } = this.state;
-    return (
-      <FormsDiv onSubmit={this.onSubmitForm}>
-        <LabelName htmlFor="name">Name</LabelName>
-        <InputName
-          onChange={this.onChangeState}
-          id="name"
-          name="name"
-          type="text"
-          value={name}
-        />
-        <LabelPhone htmlFor="phone">Phone</LabelPhone>
-        <InputPhone
-          onChange={this.onChangeState}
-          id="phone"
-          name="number"
-          type="tel"
-          value={number}
-        />
-        <ButtonType type="submit">BUTTON</ButtonType>
-      </FormsDiv>
-    );
-  }
-}
+  // onChangeState = ({ target: { value, name } }) => {
+  //   this.setState({ [name]: value });
+  // };
+
+  // Питання!!!
+  const onSubmitForm = e => {
+    e.preventDefault();
+    contactsState({ name, number });
+  };
+
+  return (
+    <FormsDiv onSubmit={onSubmitForm}>
+      <LabelName htmlFor="name">Name</LabelName>
+      <InputName
+        onChange={onChangeState}
+        id="name"
+        name="name"
+        type="text"
+        value={name}
+      />
+      <LabelPhone htmlFor="phone">Phone</LabelPhone>
+      <InputPhone
+        onChange={onChangeState}
+        id="phone"
+        name="number"
+        type="tel"
+        value={number}
+      />
+      <ButtonType type="submit">BUTTON</ButtonType>
+    </FormsDiv>
+  );
+};
